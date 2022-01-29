@@ -1,0 +1,139 @@
+===== react-image-carousel\src\Components\Carousel.js =====
+import React, { useState } from "react";
+import "./Carousel.css";
+import { images } from "../Helpers/CarouselData";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+
+function Carousel() {
+	const [currImg, setCurrImg] = useState(0);
+	
+	return (
+		<div className="carousel">
+			<div
+				className="carouselInner"
+				style=={{ backgroundImage: `url(${images[currImg].img})` }}
+			>
+				<div
+					className="left"
+					onClick={ ()=> {
+						currImg > 0 && setCurrImg(currImg - 1);
+					}}				
+				>
+					<ArrowBackIos style={{ fontSize: 30 }} />
+				</div>	
+				<div 
+					className="center"
+				>
+					<h1> { images[currImg].title }</h1>
+					<p> { images[currImg].subtitle }</p>
+				</div>
+				<div
+					className="right"
+					onClick={() => {
+						currImg < images.length && setCurrImg(currImg + 1);
+					}}
+				>
+					<ArrowForwardIos style={{ fontSize:30 }} />
+				</div>
+			</div>	
+		</div>
+	)
+}
+
+export default Carousel;
+
+===== react-image-carousel\src\Components\Carousel.css =====
+.carousel {
+	width: 60%;
+	height:700px;
+	background-color: black;
+}
+
+.carouselInner {
+	height: 100%;
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+}
+
+.carouselInner .left {
+	flex: 5%;
+	height: 100%;
+	background-color: rgb(0, 0, 0, 0.6);
+	display: grid;
+	place-items: center;
+	color: white;
+	cursor: pointer;
+}
+
+.carouselInner .center{
+	flex: 80%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+	font-family: Arial, Helvetica;
+	text-align: justify;
+	text-align-last: center;
+}
+
+.carouselInner .right{
+	flex: 5%;
+	height: 100%;
+	background-color: rgb(0, 0, 0, 0.6);
+	display: grid;
+	place-items: center;
+	color: white;
+	cursor: pointer;
+}
+
+h1{
+	font-size: 5rem;
+}
+h1, p{
+	background-color: rgb(255, 255, 255, 0.8);
+	padding: 20px;
+	border-radius: 9px;
+}
+
+p{
+	font-size: 2rem;
+}
+
+====== react-image-carousel\src\Helpers\CarouselData.js =====
+import City from "../Images/city.jpg";
+import Salvador from "../Images/salvador.jpg";
+import Ubc from "../Images/ubc.jpg";
+
+export const images = [
+	{	title: "San Diego",
+		subtitle: "This is Sandiego",
+		img: City
+	},
+	{
+		title: "Salvador, Brazil",
+		subtitle: "The best city in the world",
+		img: Salvador
+	},
+	{
+		title: "Ubc ",
+		subtitle: " The university of british colombia",
+		img: Ubc
+	}
+];
+
+===== react-image-carousel\src\App.js =====
+import "./App.css";
+import Carousel from "./Components/Carousel";
+import React from "react";
+function App() {
+  return (
+    <div className="App">
+      <Carousel />
+    </div>
+  );
+}
+
+export default App;
